@@ -114,11 +114,12 @@ func (h *HandlerBasedOnTree) findMatchChild(root *node, path string) (*node, boo
 	}
 	return nil, false
 }
-
+ // paths   a/b/c
 func (h *HandlerBasedOnTree) createSubTree(root *node, paths []string, handlerFn handlerFunc) {
 	cur := root
 	for _, path := range paths {
 		nn := newNode(path)
+		//
 		cur.children = append(cur.children, nn)
 		cur = nn
 	}

@@ -10,6 +10,7 @@ import (
 	"strings"
 )
 
+// StaticResourceHandlerOption todo options模式
 type StaticResourceHandlerOption func(h *StaticResourceHandler)
 
 type StaticResourceHandler struct {
@@ -28,7 +29,7 @@ type fileCacheItem struct {
 	contentType string
 	data []byte
 }
-
+//
 func NewStaticResourceHandler(dir string, pathPrefix string,
 	options...StaticResourceHandlerOption) *StaticResourceHandler {
 	res := &StaticResourceHandler{
@@ -43,13 +44,14 @@ func NewStaticResourceHandler(dir string, pathPrefix string,
 			"pdf": "image/pdf",
 		},
 	}
-
+     // todo   ...A
 	for _, o := range options {
 		o(res)
 	}
 	return res
 }
-// WithFileCache 静态文件将会被缓存
+
+// WithFileCache todo  静态文件将会被缓存
 // maxFileSizeThreshold 超过这个大小的文件，就被认为是大文件，我们将不会缓存
 // maxCacheFileCnt 最多缓存多少个文件
 // 所以我们最多缓存 maxFileSizeThreshold * maxCacheFileCnt
@@ -73,12 +75,15 @@ func WithMoreExtension(extMap map[string]string) StaticResourceHandlerOption {
 }
 
 func (h *StaticResourceHandler) ServeStaticResource(c *Context)  {
+	// static/img/abc.png
 	req := strings.TrimPrefix(c.R.URL.Path, h.pathPrefix)
 	if item, ok := h.readFileFromData(req); ok {
 		fmt.Printf("read data from cache...")
 		h.writeItemAsResponse(item, c.W)
 		return
 	}
+	// img/abc.png
+
 	path := filepath.Join(h.dir, req)
 	f, err := os.Open(path)
 	if err != nil {
@@ -138,4 +143,27 @@ func getFileExt(name string) string {
 		return ""
 	}
 	return name[index+1:]
+}
+
+type User struct {
+	Id int64
+	Name string
+
+	Address string
+}
+
+
+type Option func(u *User)
+
+func NewUser(id int64,name string,options ... Option) *User{
+
+	u:=&User{
+		Id: 1,
+		Name: "aa",
+	}
+
+	for _,o:=range options{
+		o(u)
+	}
+	return u
 }

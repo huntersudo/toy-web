@@ -18,7 +18,20 @@ func main() {
 	Delay()
 	time.Sleep(time.Second)
 }
+//i is 13
+//Hello, Tom
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
+//hello, this is : 10
 
+// todo duokan
 func ReturnClosure(name string) func() string {
 	return func() string {
 		return "Hello, " + name

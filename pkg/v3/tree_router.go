@@ -138,11 +138,16 @@ func (h *HandlerBasedOnTree) findMatchChild(root *node,
 	if len(candidates) == 0 {
 		return nil, false
 	}
+    // /user/*
+    // /user/home
+    //
 
 	// type 也决定了它们的优先级
 	sort.Slice(candidates, func(i, j int) bool {
 		return candidates[i].nodeType < candidates[j].nodeType
 	})
+
+
 	return candidates[len(candidates) - 1], true
 }
 

@@ -15,3 +15,6 @@ func main() {
 		fmt.Println("ccc")
 	}()
 }
+// ccc
+// bbb
+// aaa

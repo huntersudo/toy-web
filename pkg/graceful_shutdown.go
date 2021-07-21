@@ -29,7 +29,7 @@ func NewGracefulShutdown() *GracefulShutdown {
 	}
 }
 
-// ShutdownFilterBuilder 这个东西怎么保持线程安全呢？
+// ShutdownFilterBuilder todo  这个东西怎么保持线程安全呢？
 // 它的逻辑有点绕，核心就在于当我们准备关闭的时候，这个动作是单向的，就是说，我的closing一旦加1
 // 就再也不会-1
 // 所以我们不需要用一个锁把整个方法锁住
@@ -57,7 +57,7 @@ func (g *GracefulShutdown) ShutdownFilterBuilder(next Filter) Filter {
 	}
 }
 
-// RejectNewRequestAndWaiting 将会拒绝新的请求，并且等待处理中的请求
+// RejectNewRequestAndWaiting todo 将会拒绝新的请求，并且等待处理中的请求
 func (g *GracefulShutdown) RejectNewRequestAndWaiting(ctx context.Context) error {
 
 	atomic.AddInt32(&g.closing, 1)
@@ -85,6 +85,7 @@ func (g *GracefulShutdown) RejectNewRequestAndWaiting(ctx context.Context) error
 func WaitForShutdown(hooks...Hook) {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, ShutdownSignals...)
+
 	select {
 	case sig := <-signals:
 		fmt.Printf("get signal %s, application will shutdown \n", sig)
@@ -93,6 +94,7 @@ func WaitForShutdown(hooks...Hook) {
 			fmt.Printf("Shutdown gracefully timeout, application will shutdown immediately. ")
 			os.Exit(1)
 		})
+		// todo 每个步骤最多执行30s
 		for _, h := range hooks {
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second * 30)
 			err := h(ctx)

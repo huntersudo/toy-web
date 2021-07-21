@@ -31,7 +31,7 @@ func ErrorsPkg()  {
 	}
 	
 	if errors.Is(wrappedErr, err) {
-		// 虽然被包了一下，但是 Is 会逐层解除包装，判断是不是该错误
+		//todo 虽然被包了一下，但是 Is 会逐层解除包装，判断是不是该错误
 		fmt.Println("wrapped is err")
 	}
 

@@ -6,7 +6,9 @@ func main() {
 	son := Son{
 		Parent{},
 	}
-
+	// 所以说golang不支持真正的继承支持的多态
+	// java : son
+	// golang: parent
 	son.SayHello()
 }
 

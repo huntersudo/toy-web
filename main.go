@@ -29,6 +29,7 @@ func main() {
 	shutdown := web.NewGracefulShutdown()
 	server := web.NewSdkHttpServer("my-test-server",
 		web.MetricFilterBuilder, shutdown.ShutdownFilterBuilder)
+
 	adminServer := web.NewSdkHttpServer("admin-test-server",
 		// 注意，如果你真实环境里面，使用的是多个 server监听不同端口，
 		// 那么这个 shutdown最好也是多个。互相之间就不会有竞争
@@ -77,6 +78,7 @@ func main() {
 		shutdown.RejectNewRequestAndWaiting,
 		// 全部请求处理完了我们就可以关闭 server了
 		web.BuildCloseServerHook(server, adminServer),
+
 		func(ctx context.Context) error {
 			// 假设这里我要清理一些执行过程中生成的临时资源
 			fmt.Println("mock release resources")

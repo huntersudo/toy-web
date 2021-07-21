@@ -3,6 +3,8 @@ package main
 import "fmt"
 
 func main() {
+	// bibao
+	// niming func
 	defer func() {
 		if data := recover(); data != nil {
 			fmt.Printf("hello, panic: %v\n", data)

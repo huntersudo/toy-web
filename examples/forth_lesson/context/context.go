@@ -38,7 +38,7 @@ func WithCancel() {
 }
 
 func WithDeadline() {
-	// 设置两秒后超时
+	// 设置两秒后超时   todo  链路超时控制
 	ctx, cancel := context.WithDeadline(context.Background(),
 		time.Now().Add(2 * time.Second))
 	defer cancel()
@@ -56,7 +56,7 @@ func WithValue() {
 
 	sonKey := "son"
 	son := context.WithValue(parent, sonKey, "this is son")
-
+     // todo son可以拿到parent的，反之不行
 	// 尝试从 parent 里面拿出来 key = son的，会拿不到
 	if parent.Value(parentKey) == nil {
 		fmt.Printf("parent can not get son's key-value pair")
@@ -65,4 +65,10 @@ func WithValue() {
 	if val := son.Value(parentKey); val != nil {
 		fmt.Printf("parent can not get son's key-value pair")
 	}
+
+	//todo thread -local 线程安全的保存数据的地方
+	// thread1 -> map[string]value
+	// thread2 -> map[string]value
+	//  互相不能访问
+	 // Go 要么用channel，要么用 context
 }
