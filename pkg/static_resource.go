@@ -146,9 +146,10 @@ func getFileExt(name string) string {
 }
 
 type User struct {
+	// 必须
 	Id int64
 	Name string
-
+    //可选
 	Address string
 }
 

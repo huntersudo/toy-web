@@ -5,6 +5,7 @@ import (
 	web "geektime/toy-web/pkg"
 )
 
+// todo 接口的注册与发现
 func init() {
 	web.RegisterFilter("my-custom", myFilterBuilder)
 }

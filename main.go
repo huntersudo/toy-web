@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"geektime/toy-web/demo"
+	// 匿名引入出发注册 todo 接口的注册与发现
 	_ "geektime/toy-web/demo/filters"
 	"geektime/toy-web/pkg"
 	"net/http"
